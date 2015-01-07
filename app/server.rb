@@ -18,6 +18,7 @@ post '/donger' do
     begin
       donger = Dongers.get(text.capitalize)
       Slackhook.post(donger, request['channel_name'])
+      nil
     rescue Dongers::NonexistentCategory
       NONEXISTENT_CATEGORY
     rescue Dongers::NoDongersFound
