@@ -10,7 +10,7 @@ NONEXISTENT_CATEGORY = "That category doesn't exist ᕕ(˵•̀෴•́˵)ᕗ"
 post '/donger' do
   halt 401 unless request['token'] == SLACK_TOKEN
 
-  text = request['text']
+  text = request['text'].strip
   if text == CATEGORIES_COMMAND
     "The available categories are: \n" << Dongers::CATEGORIES.join("\n")
   else
