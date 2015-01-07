@@ -1,4 +1,5 @@
-require 'net/http'
+require 'uri'
+require 'httparty'
 require 'nokogiri'
 
 module Dongers
@@ -17,10 +18,9 @@ module Dongers
     raise NonexistentCategory.new if !category.empty? && !CATEGORIES.include?(category)
 
     path = category ? (CATEGORY_PATH % category) : '/'
-    http = Net::HTTP.new(HOST)
-    req = Net::HTTP::Get.new(path, 'User-Agent' => '')
+    url = URI.join(HOST, path)
 
-    raw_html = http.request(req).body
+    raw_html = HTTParty.get(url, headers: 'User-Agent' => '').body
     dongers = Nokogiri::HTML(raw_html).css(DONGER_HTML_CLASS)
     raise NoDongersFound.new if dongers.empty?
 
