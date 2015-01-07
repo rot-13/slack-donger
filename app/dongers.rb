@@ -4,6 +4,7 @@ require 'nokogiri'
 module Dongers
 
   class NonexistentCategory < StandardError; end
+  class NoDongersFound < StandardError; end
 
   HOST = 'dongerlist.com'
   CATEGORY_PATH = '/category/%s'
@@ -21,6 +22,8 @@ module Dongers
 
     raw_html = http.request(req).body
     dongers = Nokogiri::HTML(raw_html).css(DONGER_HTML_CLASS)
-    dongers.empty? ? NOT_FOUND : dongers[rand(dongers.count)][DONGER_TEXT_ATTRIBUTE]
+    raise NoDongersFound.new if dongers.empty?
+
+    dongers[rand(dongers.count)][DONGER_TEXT_ATTRIBUTE]
   end
 end

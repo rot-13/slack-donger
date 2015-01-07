@@ -5,7 +5,8 @@ require_relative './slackhook'
 SLACK_TOKEN = ENV['SLACK_TOKEN']
 
 CATEGORIES_COMMAND = 'categories'
-NONEXISTENT_CATEGORY = "That category doesn't exist ᕕ(˵•̀෴•́˵)ᕗ"
+NONEXISTENT_CATEGORY = "That category doesn't exist ᕕ(˵•̀෴•́˵)ᕗ\nTry '/donger categories' for a list of all categories"
+NO_DONGERS_FOUND = "There aren't any dongers in that category ┌╏✖_✖╏┘"
 
 post '/donger' do
   halt 401 unless request['token'] == SLACK_TOKEN
@@ -19,6 +20,8 @@ post '/donger' do
       Slackhook.post(donger, request['channel_name'])
     rescue Dongers::NonexistentCategory
       NONEXISTENT_CATEGORY
+    rescue Dongers::NoDongersFound
+      NO_DONGERS_FOUND
     end
   end
 end
