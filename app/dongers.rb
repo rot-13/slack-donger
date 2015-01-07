@@ -7,7 +7,7 @@ module Dongers
   class NonexistentCategory < StandardError; end
   class NoDongersFound < StandardError; end
 
-  HOST = 'dongerlist.com'
+  HOST = 'http://dongerlist.com'
   CATEGORY_PATH = '/category/%s'
   DONGER_HTML_CLASS = '.copy-donger'
   DONGER_TEXT_ATTRIBUTE = 'data-clipboard-text'
