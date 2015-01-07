@@ -1,6 +1,6 @@
 require 'sinatra'
-require './dongers'
-require './slackhook'
+require_relative './dongers'
+require_relative './slackhook'
 
 SLACK_TOKEN = ENV['SLACK_TOKEN']
 
