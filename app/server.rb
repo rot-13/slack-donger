@@ -15,7 +15,7 @@ post '/donger' do
     "The available categories are: \n" << Dongers::CATEGORIES.join("\n")
   else
     begin
-      donger = Dongers.get(request['text'])
+      donger = Dongers.get(text.capitalize)
       Slackhook.post(donger, request['channel_name'])
     rescue Dongers::NonexistentCategory
       NONEXISTENT_CATEGORY
