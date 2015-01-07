@@ -1,4 +1,5 @@
 require 'net/http'
+require 'nokogiri'
 
 module Dongers
 
@@ -11,8 +12,8 @@ module Dongers
 
   CATEGORIES = ['All', 'Ameno', 'Angry', 'Animal', 'Brick', 'Cool', 'Cracker', 'Crazy', 'Cry', 'Cute', 'Dance', 'Dead', 'Donger', 'Dunno', 'Excited', 'Fight', 'Finger', 'Flex', 'Flip', 'Flower', 'Glasses', 'Gun', 'Happy', 'Lenny', 'Lower', 'Mad', 'Magic', 'Man', 'Meh', 'Mob', 'Monocle', 'Point', 'Pyramid', 'Raise', 'Run', 'Sad', 'Scared', 'Scary', 'Shocked', 'Spider', 'Surprised', 'Sword', 'Table', 'Throw', 'Tree', 'Ugly', 'Upset', 'Walk', 'Wall', 'Why']
 
-  def self.get(category = nil)
-    raise NonexistentCategory.new if !category.nil? && !CATEGORIES.include?(category)
+  def self.get(category = '')
+    raise NonexistentCategory.new if !category.empty? && !CATEGORIES.include?(category)
 
     path = category ? (CATEGORY_PATH % category) : '/'
     http = Net::HTTP.new(HOST)
