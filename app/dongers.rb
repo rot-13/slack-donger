@@ -20,7 +20,7 @@ module Dongers
     path = category ? (CATEGORY_PATH % category) : '/'
     url = URI.join(HOST, path)
 
-    raw_html = HTTParty.get(url, headers: 'User-Agent' => '').body
+    raw_html = HTTParty.get(url, headers: {'User-Agent' => ''}).body
     dongers = Nokogiri::HTML(raw_html).css(DONGER_HTML_CLASS)
     raise NoDongersFound.new if dongers.empty?
 
